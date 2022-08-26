@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sq
+  name: sq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sq
+  template:
+    metadata:
+      labels:
+        app: sq
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "{{ .Values.rootPassword }}"
+        - name: MYSQL_DATABASE
+          value: "{{ .Values.database }}"
+        - name: MYSQL_USER
+          value: "{{ .Values.user }}"
+        - name: MYSQL_PASSWORD
+          value: "{{ .Values.password }}"
+        image: mysql:5.7
+        imagePullPolicy: Always
+        name: mysql
+
+
